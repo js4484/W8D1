@@ -75,11 +75,13 @@ class User
         if @id
             insertion = QuestionDBConnection.instance.execute(<<-SQL, @id, @fname, @lname)
             UPDATE
-                users(id, fname, lname)
+                users
             SET
-                (?, ?, ?)
+                id = ?,
+                fname = ?,
+                lname = ?
             SQL
-            insertion
+            self
         else
             insertion = QuestionDBConnection.instance.execute(<<-SQL, @fname, @lname)
             INSERT INTO 
